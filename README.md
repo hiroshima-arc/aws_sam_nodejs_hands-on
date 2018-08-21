@@ -42,6 +42,34 @@ nvm install v8.10
 nvm alias default v8.10
 ```
 
+### ドキュメント環境構築
+```bash
+cd /vagrant
+curl -s api.sdkman.io | bash
+source "/home/vagrant/.sdkman/bin/sdkman-init.sh"
+sdk list maven
+sdk use maven 3.5.4
+sdk list java
+sdk use java 8.0.181-zulu
+sdk list gradle
+sdk use gradle 4.9
+```
+ドキュメントのセットアップ
+```
+cd /vagrant/
+touch build.gradle
+```
+`build.gradle`を作成して以下のコマンドを実行
+```
+gradle build
+```
+ドキュメントの生成
+```bash
+gradle asciidoctor
+gradle livereload
+```
+[http://192.168.33.10:35729/](http://192.168.33.10:35729/)に接続して確認する
+
 **[⬆ back to top](#構成)**
 
 ## 配置
@@ -150,3 +178,4 @@ package.jsonにnpm-scriptを追加する
 + [ESLint 最初の一歩](https://qiita.com/mysticatea/items/f523dab04a25f617c87d)
 + [husky](https://github.com/typicode/husky)
 + [istanbul](https://istanbul.js.org/)  
++ [図入りのAsciiDoc記述からPDFを生成する環境をGradleで簡単に用意する](https://qiita.com/tokumoto/items/d37ab3de5bdbee307769) 

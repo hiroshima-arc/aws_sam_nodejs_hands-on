@@ -77,3 +77,5 @@ typings/
 .idea
 aws_sam_nodejs_hands-on.iml
 .vagrant
+.gradle
+docs/.asciidoctor
