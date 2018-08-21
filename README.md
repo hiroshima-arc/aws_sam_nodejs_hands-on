@@ -105,6 +105,25 @@ lintコマンドを実行する
 npm run lint
 ```
 
+### huskyのセットアップ
+```bash
+npm install husky@next --save-dev
+```
+package.jsonにnpm-scriptを追加する
+```bash
+"scripts": {
+    "test": "mocha tests/unit/",
+    "lint": "eslint ./",
+    "pre-commit": "npm run lint",
+    "pre-push": "npm test"
+  },
+```
+コマンドを確認する
+```bash
+npm run pre-commit
+npm run pre-push
+```
+
 **[⬆ back to top](#構成)**
 
 # 参照 #
@@ -113,4 +132,5 @@ npm run lint
 + [aws-sam-local 改め aws-sam-cli の新機能 sam init を試す](https://qiita.com/hayao_k/items/841026f9675d163b58d5)
 + [nvmを使ったNode.jsのインストール&バージョンアップ手順](https://qiita.com/ffggss/items/94f1c4c5d311db2ec71a)
 + [eslint-config-airbnb](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)
-+ [ESLint 最初の一歩](https://qiita.com/mysticatea/items/f523dab04a25f617c87d)  
++ [ESLint 最初の一歩](https://qiita.com/mysticatea/items/f523dab04a25f617c87d)
++ [husky](https://github.com/typicode/husky)  
