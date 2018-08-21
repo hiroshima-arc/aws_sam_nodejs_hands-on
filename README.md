@@ -35,7 +35,7 @@ vagrant ssh
 + nvmのインストール
 + Node.jsのインストール
 ```bash
-pip install --user aws-sam-cli
+pip install aws-sam-cli
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.3/install.sh | bash
 source ~/.bashrc 
 nvm install v8.10
@@ -59,6 +59,18 @@ cd /vagrant
 sam init --runtime nodejs
 cd sam-app
 ```
+
+### ローカルでテストする
+```bash
+cd hello_world
+npm install
+npm test
+sam local generate-event api > event_file.json
+cd ..
+sam local invoke HelloWorldFunction --event hello_world/event_file.json
+sam local start-api --host 0.0.0.0
+```
+[http://192.168.33.10:3000/hello](http://192.168.33.10:3000/hello)に接続して確認する
 
 **[⬆ back to top](#構成)**
 
