@@ -124,6 +124,21 @@ npm run pre-commit
 npm run pre-push
 ```
 
+### コードカバレッジのセットアップ
+```bash
+npm install --save-dev nyc
+```
+package.jsonにnpm-scriptを追加する
+```json
+"scripts": {
+    "test": "mocha tests/unit/",
+    "lint": "eslint ./",
+    "coverage": "nyc --reporter=html --reporter=text mocha tests/unit/",
+    "pre-commit": "npm run lint",
+    "pre-push": "npm test"
+  },
+```
+
 **[⬆ back to top](#構成)**
 
 # 参照 #
@@ -133,4 +148,5 @@ npm run pre-push
 + [nvmを使ったNode.jsのインストール&バージョンアップ手順](https://qiita.com/ffggss/items/94f1c4c5d311db2ec71a)
 + [eslint-config-airbnb](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)
 + [ESLint 最初の一歩](https://qiita.com/mysticatea/items/f523dab04a25f617c87d)
-+ [husky](https://github.com/typicode/husky)  
++ [husky](https://github.com/typicode/husky)
++ [istanbul](https://istanbul.js.org/)  

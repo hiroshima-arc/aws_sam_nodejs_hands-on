@@ -12,6 +12,7 @@
   "scripts": {
     "test": "mocha tests/unit/",
     "lint": "eslint ./",
+    "coverage": "nyc --reporter=html --reporter=text mocha tests/unit/",
     "pre-commit": "npm run lint",
     "pre-push": "npm test"
   },
@@ -24,6 +25,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
     "husky": "^1.0.0-rc.13",
-    "mocha": "^5.1.1"
+    "mocha": "^5.1.1",
+    "nyc": "^12.0.2"
   }
 }
