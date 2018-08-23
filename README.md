@@ -89,6 +89,32 @@ source .env
 aws ec2 describe-regions
 ```
 
+### デプロイ
+デプロイ用のS3バケットを用意する
+```bash
+aws s3 mb s3://nodejs-handson
+```
+デプロイを実行する
+````bash
+cd /vagrant/sam-app
+sam validate
+sam package --template-file template.yaml --s3-bucket nodejs-handson --output-template-file packaged.yaml
+sam deploy --template-file packaged.yaml --stack-name nodejs-handson --capabilities CAPABILITY_IAM
+````
+デプロイが成功したら動作を確認する
+```bash
+aws cloudformation describe-stacks --stack-name nodejs-handson --query 'Stacks[].Outputs[1]'
+```
+
+パッケージで以下のエラーが出たら次のコマンドを実行する
+```
+Unable to upload artifact hello_world/ referenced by CodeUri parameter of HelloWorldFunction resource.
+ZIP does not support timestamps before 1980
+```
+```
+find . -mtime +10950 -print -exec touch {} \;
+```
+
 **[⬆ back to top](#構成)**
 
 ## 運用
@@ -193,4 +219,5 @@ package.jsonにnpm-scriptを追加する
 + [ESLint 最初の一歩](https://qiita.com/mysticatea/items/f523dab04a25f617c87d)
 + [husky](https://github.com/typicode/husky)
 + [istanbul](https://istanbul.js.org/)  
-+ [図入りのAsciiDoc記述からPDFを生成する環境をGradleで簡単に用意する](https://qiita.com/tokumoto/items/d37ab3de5bdbee307769) 
++ [図入りのAsciiDoc記述からPDFを生成する環境をGradleで簡単に用意する](https://qiita.com/tokumoto/items/d37ab3de5bdbee307769)
++ [Code Deploy - Unhandled exception - ZIP does not support timestamps before 1980](https://github.com/aws/aws-cli/issues/2639) 
