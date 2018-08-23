@@ -1,7 +1,7 @@
 [
   {
     "ParameterKey": "ProjectName",
-    "ParameterValue": "nodejs-hands-on"
+    "ParameterValue": "nodejs-hands-on-production"
   },
   {
     "ParameterKey": "ProjectParameterOverrides",

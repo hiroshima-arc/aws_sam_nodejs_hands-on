@@ -127,11 +127,11 @@ aws s3 mb s3://nodejs-hands-on
 cd /vagrant/sam-app
 sam validate
 sam package --template-file template.yaml --s3-bucket nodejs-hands-on --output-template-file packaged.yaml
-sam deploy --template-file packaged.yaml --stack-name nodejs-hands-on --capabilities CAPABILITY_IAM
+sam deploy --template-file packaged.yaml --stack-name nodejs-hands-on-development --capabilities CAPABILITY_IAM
 ````
 デプロイが成功したら動作を確認する
 ```bash
-aws cloudformation describe-stacks --stack-name nodejs-hands-on --query 'Stacks[].Outputs[1]'
+aws cloudformation describe-stacks --stack-name nodejs-hands-on-development --query 'Stacks[].Outputs[1]'
 ```
 
 パッケージで以下のエラーが出たら次のコマンドを実行する
