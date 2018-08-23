@@ -1,0 +1,43 @@
+{
+  "name": "nodejs-hands-on",
+  "version": "0.0.0",
+  "description": "AWS SAM Node.js Hands-on ===================",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "pre-commit": "npm run lint",
+    "pre-push": "npm run coverage",
+    "build": "npm-run-all build:*",
+    "build:hello_world": "cd sam-app/hello_world ; npm install",
+    "lint": "npm-run-all lint:*",
+    "lint:hello_world": "eslint sam-app/hello_world/app.js",
+    "test": "npm-run-all test:*",
+    "test:hello_world": "mocha sam-app/hello_world/tests/*",
+    "coverage": "npm-run-all coverage:*",
+    "coverage:hello_world": "nyc --reporter=html --reporter=text mocha sam-app/hello_world/tests/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hiroshima-arc/aws_sam_nodejs_hands-on.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hiroshima-arc/aws_sam_nodejs_hands-on/issues"
+  },
+  "homepage": "https://github.com/hiroshima-arc/aws_sam_nodejs_hands-on#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "husky": "^1.0.0-rc.13",
+    "mocha": "^5.2.0",
+    "npm-run-all": "^4.1.3",
+    "nyc": "^12.0.2"
+  }
+}

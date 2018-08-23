@@ -75,6 +75,28 @@ gradle livereload
 cd /vagrant/ops/code_pipline
 ./create_stack.sh 
 ```
+`buildspec.yml`とビルド用スクリプトをプロジェクト直下に追加する
+```
+cd /vagrant/
+npm init
+npm install npm-run-all mocha chai eslint husky@next nyc --save-dev
+npx install-peerdeps --dev eslint-config-airbnb
+```
+以下のnpmスクリプトを追加する
+```
+  "scripts": {
+    "pre-commit": "npm run lint",
+    "pre-push": "npm run coverage",
+    "build": "npm-run-all build:*",
+    "build:hello_world": "cd sam-app/hello_world ; npm install",
+    "lint": "npm-run-all lint:*",
+    "lint:hello_world": "eslint sam-app/hello_world/app.js",
+    "test": "npm-run-all test:*",
+    "test:hello_world": "mocha sam-app/hello_world/tests/*",
+    "coverage": "npm-run-all coverage:*",
+    "coverage:hello_world": "nyc --reporter=html --reporter=text mocha sam-app/hello_world/tests/*"
+   },
+```
 
 **[⬆ back to top](#構成)**
 
@@ -264,4 +286,5 @@ package.jsonにnpm-scriptを追加する
 + [istanbul](https://istanbul.js.org/)  
 + [図入りのAsciiDoc記述からPDFを生成する環境をGradleで簡単に用意する](https://qiita.com/tokumoto/items/d37ab3de5bdbee307769)
 + [Code Deploy - Unhandled exception - ZIP does not support timestamps before 1980](https://github.com/aws/aws-cli/issues/2639)
-+ [クラウド破産しないように git-secrets を使う](https://qiita.com/pottava/items/4c602c97aacf10c058f1)  
++ [クラウド破産しないように git-secrets を使う](https://qiita.com/pottava/items/4c602c97aacf10c058f1)
++ [npm-run-all](https://www.npmjs.com/package/npm-run-all)  
