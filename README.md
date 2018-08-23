@@ -70,6 +70,12 @@ gradle livereload
 ```
 [http://192.168.33.10:35729/](http://192.168.33.10:35729/)に接続して確認する
 
+### パイプラインの構築
+```
+cd /vagrant/ops/code_pipline
+./create_stack.sh 
+```
+
 **[⬆ back to top](#構成)**
 
 ## 配置
@@ -92,18 +98,18 @@ aws ec2 describe-regions
 ### デプロイ
 デプロイ用のS3バケットを用意する
 ```bash
-aws s3 mb s3://nodejs-handson
+aws s3 mb s3://nodejs-hands-on
 ```
 デプロイを実行する
 ````bash
 cd /vagrant/sam-app
 sam validate
-sam package --template-file template.yaml --s3-bucket nodejs-handson --output-template-file packaged.yaml
-sam deploy --template-file packaged.yaml --stack-name nodejs-handson --capabilities CAPABILITY_IAM
+sam package --template-file template.yaml --s3-bucket nodejs-hands-on --output-template-file packaged.yaml
+sam deploy --template-file packaged.yaml --stack-name nodejs-hands-on --capabilities CAPABILITY_IAM
 ````
 デプロイが成功したら動作を確認する
 ```bash
-aws cloudformation describe-stacks --stack-name nodejs-handson --query 'Stacks[].Outputs[1]'
+aws cloudformation describe-stacks --stack-name nodejs-hands-on --query 'Stacks[].Outputs[1]'
 ```
 
 パッケージで以下のエラーが出たら次のコマンドを実行する
@@ -120,11 +126,11 @@ find . -mtime +10950 -print -exec touch {} \;
 ## 運用
 ### スタックの削除
 ```bash
-aws cloudformation delete-stack --stack-name nodejs-handson
+aws cloudformation delete-stack --stack-name nodejs-hands-on
 ```
 ### S３バケットの削除
 ```bash
-aws s3 rb s3://nodejs-handson --force
+aws s3 rb s3://nodejs-hands-on --force
 ```
 
 ### git-secretsの設定
