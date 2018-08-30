@@ -12,9 +12,13 @@ exports.lambda_handler = async (event, context, callback) => {
         response = {
             statusCode: 200,
             body: JSON.stringify({
-                message: 'hello world',
+                message: 'Hello Node.js lambda world',
                 location: ret.data.trim(),
             }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
         };
     } catch (err) {
         console.log(err);

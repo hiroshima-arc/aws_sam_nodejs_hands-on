@@ -287,4 +287,5 @@ package.jsonにnpm-scriptを追加する
 + [図入りのAsciiDoc記述からPDFを生成する環境をGradleで簡単に用意する](https://qiita.com/tokumoto/items/d37ab3de5bdbee307769)
 + [Code Deploy - Unhandled exception - ZIP does not support timestamps before 1980](https://github.com/aws/aws-cli/issues/2639)
 + [クラウド破産しないように git-secrets を使う](https://qiita.com/pottava/items/4c602c97aacf10c058f1)
-+ [npm-run-all](https://www.npmjs.com/package/npm-run-all)  
++ [npm-run-all](https://www.npmjs.com/package/npm-run-all)
++ [AWS Startup Kit Serverless Workload](https://github.com/aws-samples/startup-kit-serverless-workload)  
