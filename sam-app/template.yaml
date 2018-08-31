@@ -9,6 +9,10 @@ Description: >
 Globals:
     Function:
         Timeout: 3
+        Runtime: nodejs8.10
+        Environment:
+          Variables:
+            TABLE_NAME: !Ref Table
 
     Api:
       # enable CORS; to make more specific, change the origin wildcard
@@ -35,6 +39,118 @@ Resources:
                     Properties:
                         Path: /hello
                         Method: get
+
+    CreateFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: todo/
+        Handler: app.create
+        FunctionName: TodoCreateFunction
+        Policies: AmazonDynamoDBFullAccess
+        Events:
+          PostResource:
+            Type: Api
+            Properties:
+              Path: /todo/new
+              Method: post
+
+    GetAllFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: todo/
+        Handler: app.getAll
+        FunctionName: TodoGetAllFunction
+        Policies: AmazonDynamoDBReadOnlyAccess
+        Events:
+          GetResource:
+            Type: Api
+            Properties:
+              Path: /todo/all
+              Method: get
+
+  # API functions related to active TODO items
+
+    GetActiveFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: todo/
+        Handler: app.getActive
+        FunctionName: TodoGetActiveFunction
+        Policies: AmazonDynamoDBReadOnlyAccess
+        Events:
+          GetResource:
+            Type: Api
+            Properties:
+              Path: /todo/active
+              Method: get
+
+    UpdateActiveFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: todo/
+        Handler: app.updateActive
+        FunctionName: TodoUpdateActiveFunction
+        Policies: AmazonDynamoDBFullAccess
+        Events:
+          PutResource:
+            Type: Api
+            Properties:
+              Path: /todo/active
+              Method: put
+
+  # API functions related to completed TODO items
+
+    GetCompleteFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: todo/
+        Handler: app.getComplete
+        FunctionName: TodoGetCompleteFunction
+        Policies: AmazonDynamoDBReadOnlyAccess
+        Events:
+          GetResource:
+            Type: Api
+            Properties:
+              Path: /todo/complete
+              Method: get
+
+    MarkCompleteFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: todo/
+        Handler: app.markComplete
+        FunctionName: TodoMarkCompleteFunction
+        Policies: AmazonDynamoDBFullAccess
+        Events:
+          PutResource:
+            Type: Api
+            Properties:
+              Path: /todo/complete
+              Method: put
+
+    DeleteCompleteFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: todo/
+        Handler: app.deleteComplete
+        FunctionName: TodoDeleteCompleteFunction
+        Policies: AmazonDynamoDBFullAccess
+        Events:
+          DeleteResource:
+            Type: Api
+            Properties:
+              Path: /todo/complete
+              Method: delete
+
+    Table:
+      Type: AWS::Serverless::SimpleTable
+      Properties:
+        PrimaryKey:
+          Name: todo_id
+          Type: String
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
 
 Outputs:
 

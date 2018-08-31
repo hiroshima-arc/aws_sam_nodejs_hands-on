@@ -1,0 +1,51 @@
+{
+  "name": "Todo",
+  "version": "1.0.0",
+  "description": "Todo for NodeJS",
+  "main": "src/app.js",
+  "repository": "https://github.com/aws-samples/cookiecutter-aws-sam-hello-nodejs",
+  "author": "SAM CLI",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.306.0",
+    "axios": "^0.18.0"
+  },
+  "config": {
+    "region": "ap-northeast-1",
+    "functionName": "GetAllFunction",
+    "localDb": "dynamodb"
+  },
+  "scripts": {
+    "test": "mocha tests/unit/",
+    "lint": "eslint ./",
+    "coverage": "nyc --reporter=html --reporter=text mocha tests/unit/",
+    "pre-commit": "npm run lint",
+    "pre-push": "npm test",
+    "local": "sam local invoke $npm_package_config_functionName -t ../template.yaml -e event_file.json --env-vars ../env.json --docker-network lambda-local",
+    "local-api": "sam local start-api -p 3001 -t ../template.yaml --env-vars ../env.json --docker-network lambda-local",
+    "create-local-network": "docker network create lambda-local",
+    "create-local-db": "docker run -d -v \"$PWD\":/dynamodb_local_db -p 8000:8000 --network lambda-local --name $npm_package_config_localDb cnadiminti/dynamodb-local",
+    "drop-local-network": "docker network rm lambda-local",
+    "drop-local-db": "docker rm $npm_package_config_localDb",
+    "start-local-db": "docker start $npm_package_config_localDb",
+    "stop-local-db": "docker stop $npm_package_config_localDb",
+    "db-tables": "aws --region $npm_package_config_region dynamodb list-tables --endpoint-url http://localhost:8000",
+    "db-migrate-create": "node ./scripts/migration.js create",
+    "db-migrate-delete": "node ./scripts/migration.js delete"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "husky": "^1.0.0-rc.13",
+    "mocha": "^5.1.1",
+    "nyc": "^12.0.2",
+    "proxyquire": "^2.1.0",
+    "sinon": "^6.1.5"
+  }
+}

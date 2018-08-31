@@ -273,6 +273,11 @@ package.jsonにnpm-scriptを追加する
   },
 ```
 
+### テストパッケージのセットアップ
+```
+npm install --save-dev sinon proxyquire chai-as-promised
+```
+
 **[⬆ back to top](#構成)**
 
 # 参照 #

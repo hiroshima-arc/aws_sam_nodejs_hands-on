@@ -130,3 +130,4 @@ $RECYCLE.BIN/
 .nyc_output
 coverage
 packaged.yaml
+shared-local-instance.db
