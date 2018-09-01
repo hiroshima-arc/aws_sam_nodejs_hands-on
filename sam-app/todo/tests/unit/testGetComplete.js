@@ -10,7 +10,7 @@ const chaiAsPromised = require('chai-as-promised');
 
 chai.use(chaiAsPromised);
 
-describe('Tests getAll', () => {
+describe('Tests getComplete', () => {
     let event;
     let app;
     let proxyDynamoDB;
@@ -33,7 +33,7 @@ describe('Tests getAll', () => {
         });
     });
 
-    it('should successful response when data exist', async () => {
+    it('should successful response when not active data exist', async () => {
         dynamoDbScanStub = sinon.stub(proxyDynamoDB.prototype, 'scan')
             .returns({
                 promise: () => Promise.resolve({
@@ -45,32 +45,33 @@ describe('Tests getAll', () => {
                         },
                         {
                             todo_id: '1002',
-                            active: true,
+                            active: false,
                             description: 'What TODO next?',
                         },
                         {
                             todo_id: '1003',
-                            active: true,
+                            active: false,
                             description: 'What TODO next?',
                         },
-                    ],
+                    ].filter(item => (item.active === false)),
+                    Count: 2,
                 }),
             });
 
-        const result = await app.getAll(event);
+        const result = await app.getActive(event);
 
         expect(dynamoDbScanStub.calledOnce).to.be.equal(true);
         expect(result).to.be.an('object');
         expect(result.statusCode).to.equal(200);
         expect(result.body).to.be.an('string');
-        expect(result.body).to.be.equal('[{"todo_id":"1001","active":true,"description":"What TODO next?"},{"todo_id":"1002","active":true,"description":"What TODO next?"},{"todo_id":"1003","active":true,"description":"What TODO next?"}]\n');
+        expect(result.body).to.be.equal('[{"todo_id":"1002","active":false,"description":"What TODO next?"},{"todo_id":"1003","active":false,"description":"What TODO next?"}]\n');
     });
 
     it('should 404 response when not data eexist', async () => {
         dynamoDbScanStub = sinon.stub(proxyDynamoDB.prototype, 'scan')
             .returns({ promise: () => Promise.resolve({}) });
 
-        const result = await app.getAll(event);
+        const result = await app.getActive(event);
 
         expect(dynamoDbScanStub.calledOnce).to.be.equal(true);
         expect(result).to.be.an('object');
@@ -82,7 +83,7 @@ describe('Tests getAll', () => {
         dynamoDbScanStub = sinon.stub(proxyDynamoDB.prototype, 'scan')
             .returns({ promise: () => Promise.reject(new Error('ValidationException: One of the required keys was not given a value')) });
 
-        const result = await app.getAll(event);
+        const result = await app.getActive(event);
         expect(dynamoDbScanStub.calledOnce).to.be.equal(true);
         expect(result).to.be.an('object');
         expect(result.statusCode).to.equal(500);

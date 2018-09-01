@@ -35,7 +35,7 @@ describe('Tests markComplete', () => {
         });
     });
 
-    it('should successful response when todo_id exists', async () => {
+    it('should successful response when data exist', async () => {
         dynamoDbPutStub = sinon.stub(proxyDynamoDB.prototype, 'put')
             .returns({
                 promise: () => Promise.resolve({
@@ -51,10 +51,7 @@ describe('Tests markComplete', () => {
         expect(result.body).to.be.equal('TODO item marked complete with todo_id = 1001\n');
     });
 
-    it('should successful response when todo_id not exists', async () => {
-        event = {
-            body: '{"active": false, "description": "What TODO next?"}',
-        };
+    it('should successful response when invalid data exist', async () => {
         dynamoDbPutStub = sinon.stub(proxyDynamoDB.prototype, 'put')
             .returns({
                 // eslint-disable-next-line prefer-promise-reject-errors

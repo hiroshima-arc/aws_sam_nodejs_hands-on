@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars,no-shadow */
+/* eslint-disable no-unused-vars,no-shadow,no-console,prefer-const */
 const AWS = require('aws-sdk');
 
 const tableName = process.env.TABLE_NAME;
@@ -166,7 +166,7 @@ exports.markComplete = async (event) => {
     return createResponse(200, `TODO item marked complete with todo_id = ${item.todo_id}\n`);
 };
 
-function deleteIndividualItem(todoId) {
+async function deleteIndividualItem(todoId) {
     const params = {
         TableName: tableName,
         Key: {
@@ -175,17 +175,16 @@ function deleteIndividualItem(todoId) {
         ReturnValues: 'ALL_OLD',
     };
 
-    const dbDelete = params => dynamo.delete(params).promise();
-
-    dbDelete(params).then((data) => {
+    try {
+        let data = await dynamo.delete(params).promise();
         if (!data.Attributes) {
             console.log(`ITEM NOT FOUND FOR DELETION WITH ID = ${todoId}`);
             return;
         }
         console.log(`DELETED ITEM SUCCESSFULLY WITH id = ${todoId}`);
-    }).catch((err) => {
+    } catch (err) {
         console.log(`DELETE ITEM FAILED FOR id = ${todoId}, WITH ERROR: ${err}`);
-    });
+    }
 }
 
 exports.deleteComplete = async (event) => {
@@ -212,6 +211,6 @@ exports.deleteComplete = async (event) => {
 
     console.log(`NUMBER OF ITEMS TO DELETE = ${data.Count}`);
     const ids = data.Items.map(item => item.todo_id);
-    ids.forEach(id => deleteIndividualItem(id));
+    await Promise.all(ids.map(deleteIndividualItem));
     return createResponse(200, `${data.Count} items submitted for deletion\n`);
 };

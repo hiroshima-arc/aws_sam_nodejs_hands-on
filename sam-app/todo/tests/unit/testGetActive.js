@@ -33,7 +33,7 @@ describe('Tests getActive', () => {
         });
     });
 
-    it('should successful response when data exist', async () => {
+    it('should successful response when active status data exist', async () => {
         dynamoDbScanStub = sinon.stub(proxyDynamoDB.prototype, 'scan')
             .returns({
                 promise: () => Promise.resolve({
@@ -54,6 +54,7 @@ describe('Tests getActive', () => {
                             description: 'What TODO next?',
                         },
                     ].filter(item => (item.active === true)),
+                    Count: 1,
                 }),
             });
 
@@ -66,7 +67,7 @@ describe('Tests getActive', () => {
         expect(result.body).to.be.equal('[{"todo_id":"1001","active":true,"description":"What TODO next?"}]\n');
     });
 
-    it('should 404 response when not data eexist', async () => {
+    it('should 404 response when not active status data exist', async () => {
         dynamoDbScanStub = sinon.stub(proxyDynamoDB.prototype, 'scan')
             .returns({ promise: () => Promise.resolve({}) });
 
@@ -78,7 +79,7 @@ describe('Tests getActive', () => {
         expect(result.body).to.be.equal('ITEMS NOT FOUND\n');
     });
 
-    it('should 500 response when not data eexist', async () => {
+    it('should 500 response when invalid data exist', async () => {
         dynamoDbScanStub = sinon.stub(proxyDynamoDB.prototype, 'scan')
             .returns({ promise: () => Promise.reject(new Error('ValidationException: One of the required keys was not given a value')) });
 

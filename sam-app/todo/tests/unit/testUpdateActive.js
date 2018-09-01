@@ -10,14 +10,14 @@ const chaiAsPromised = require('chai-as-promised');
 
 chai.use(chaiAsPromised);
 
-describe('Tests create', () => {
+describe('Tests updateActive', () => {
     let event;
     let app;
     let proxyDynamoDB;
     let dynamoDbPutStub;
     beforeEach(() => {
         event = {
-            body: '{"todo_id": "1001", "active": true, "description": "What TODO next?"}',
+            body: '{"todo_id": "1001", "active": true, "description": "Something TODO"}',
         };
         proxyDynamoDB = class {
             put(params) {
@@ -35,25 +35,25 @@ describe('Tests create', () => {
         });
     });
 
-    it('should successful response when todo_id exists', async () => {
+    it('should successful response when todo_id exist', async () => {
         dynamoDbPutStub = sinon.stub(proxyDynamoDB.prototype, 'put')
             .returns({
                 promise: () => Promise.resolve({
                 }),
             });
 
-        const result = await app.create(event);
+        const result = await app.updateActive(event);
 
         expect(dynamoDbPutStub.calledOnce).to.be.equal(true);
         expect(result).to.be.an('object');
         expect(result.statusCode).to.equal(200);
         expect(result.body).to.be.an('string');
-        expect(result.body).to.be.equal('TODO item created with todo_id = 1001\n');
+        expect(result.body).to.be.equal('TODO item updated with todo_id = 1001\n');
     });
 
-    it('should successful response when todo_id not exists', async () => {
+    it('should successful response when todo_id not exist', async () => {
         event = {
-            body: '{"active": true, "description": "What TODO next?"}',
+            body: '{"active": false, "description": "What TODO next?"}',
         };
         dynamoDbPutStub = sinon.stub(proxyDynamoDB.prototype, 'put')
             .returns({
@@ -61,7 +61,7 @@ describe('Tests create', () => {
                 promise: () => Promise.reject(new Error('ValidationException: One of the required keys was not given a value')),
             });
 
-        const result = await app.create(event);
+        const result = await app.updateActive(event);
 
         expect(dynamoDbPutStub.calledOnce).to.be.equal(true);
         expect(result).to.be.an('object');

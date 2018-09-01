@@ -10,14 +10,14 @@ const chaiAsPromised = require('chai-as-promised');
 
 chai.use(chaiAsPromised);
 
-describe('Tests updateActive', () => {
+describe('Tests create', () => {
     let event;
     let app;
     let proxyDynamoDB;
     let dynamoDbPutStub;
     beforeEach(() => {
         event = {
-            body: '{"todo_id": "1001", "active": true, "description": "Something TODO"}',
+            body: '{"todo_id": "1001", "active": true, "description": "What TODO next?"}',
         };
         proxyDynamoDB = class {
             put(params) {
@@ -42,18 +42,18 @@ describe('Tests updateActive', () => {
                 }),
             });
 
-        const result = await app.updateActive(event);
+        const result = await app.create(event);
 
         expect(dynamoDbPutStub.calledOnce).to.be.equal(true);
         expect(result).to.be.an('object');
         expect(result.statusCode).to.equal(200);
         expect(result.body).to.be.an('string');
-        expect(result.body).to.be.equal('TODO item updated with todo_id = 1001\n');
+        expect(result.body).to.be.equal('TODO item created with todo_id = 1001\n');
     });
 
-    it('should successful response when todo_id not exists', async () => {
+    it('should 500 response when todo_id not exists', async () => {
         event = {
-            body: '{"active": false, "description": "What TODO next?"}',
+            body: '{"active": true, "description": "What TODO next?"}',
         };
         dynamoDbPutStub = sinon.stub(proxyDynamoDB.prototype, 'put')
             .returns({
@@ -61,7 +61,7 @@ describe('Tests updateActive', () => {
                 promise: () => Promise.reject(new Error('ValidationException: One of the required keys was not given a value')),
             });
 
-        const result = await app.updateActive(event);
+        const result = await app.create(event);
 
         expect(dynamoDbPutStub.calledOnce).to.be.equal(true);
         expect(result).to.be.an('object');

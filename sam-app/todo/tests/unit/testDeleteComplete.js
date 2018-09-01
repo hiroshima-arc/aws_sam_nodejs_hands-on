@@ -82,14 +82,13 @@ describe('Tests deleteComplete', () => {
         const result = await app.deleteComplete(event);
 
         expect(dynamoDbScanStub.calledOnce).to.be.equal(true);
-        expect(dynamoDbDeleteStub.calledOnce).to.be.equal(false);
         expect(result).to.be.an('object');
         expect(result.statusCode).to.equal(200);
         expect(result.body).to.be.an('string');
         expect(result.body).to.be.equal('2 items submitted for deletion\n');
     });
 
-    it('should 404 response when not data eexist', async () => {
+    it('should 404 response when not data exist', async () => {
         dynamoDbScanStub = sinon.stub(proxyDynamoDB.prototype, 'scan')
             .returns({ promise: () => Promise.resolve({}) });
 
@@ -101,9 +100,12 @@ describe('Tests deleteComplete', () => {
         expect(result.body).to.be.equal('NO ITEMS FOUND FOR DELETION\n');
     });
 
-    it('should 500 response when not data eexist', async () => {
+    it('should 500 response when invalid data exist', async () => {
         dynamoDbScanStub = sinon.stub(proxyDynamoDB.prototype, 'scan')
-            .returns({ promise: () => Promise.reject(new Error('ValidationException: One of the required keys was not given a value')) });
+            .returns({
+                promise: () => Promise
+                    .reject(new Error('ValidationException: One of the required keys was not given a value')),
+            });
 
         const result = await app.deleteComplete(event);
         expect(dynamoDbScanStub.calledOnce).to.be.equal(true);

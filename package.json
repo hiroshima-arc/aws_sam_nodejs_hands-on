@@ -13,10 +13,13 @@
     "build:hello_world": "cd sam-app/hello_world ; npm install",
     "lint": "npm-run-all lint:*",
     "lint:hello_world": "eslint sam-app/hello_world/app.js",
+    "lint:todo": "eslint sam-app/todo/app.js",
     "test": "npm-run-all test:*",
     "test:hello_world": "mocha sam-app/hello_world/tests/*",
+    "test:todo": "mocha sam-app/todo/tests/*",
     "coverage": "npm-run-all coverage:*",
     "coverage:hello_world": "nyc --reporter=html --reporter=text mocha sam-app/hello_world/tests/*",
+    "coverage:todo": "nyc --reporter=html --reporter=text mocha sam-app/todo/tests/*",
     "package": "sam package --template-file sam-app/template.yaml --s3-bucket nodejs-hands-on --output-template-file sam-app/packaged.yaml",
     "deploy:dev": "sam deploy --template-file sam-app/packaged.yaml --stack-name nodejs-hands-on-development --capabilities CAPABILITY_IAM"
   },
