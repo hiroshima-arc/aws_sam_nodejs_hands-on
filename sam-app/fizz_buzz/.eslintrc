@@ -1,0 +1,10 @@
+{
+  "extends": "airbnb",
+  "plugins": [],
+  "parserOptions": {},
+  "env": {"mocha": true},
+  "globals": {},
+  "rules": {
+    "indent": ["error", 4]
+  }
+}
