@@ -1,26 +1,40 @@
-/* eslint-disable prefer-destructuring,no-unused-vars,no-shadow */
-
+/* eslint-disable import/no-extraneous-dependencies */
 
 const chai = require('chai');
 const app = require('../../app.js');
 
-const expect = chai.expect;
-let event; let
-  context;
+const { expect } = chai;
 
+describe('Tests FizzBuzzFunction', () => {
+  let event;
 
-describe('Tests index', () => {
-  it('verifies successful response', async () => {
-    const result = await app.lambda_handler(event, context, (err, result) => {
-      expect(result).to.be.an('object');
-      expect(result.statusCode).to.equal(200);
-      expect(result.body).to.be.an('string');
+  beforeEach(() => {
+    event = {
+      body: '{}',
+    };
+  });
 
-      const response = JSON.parse(result.body);
+  it('3ならばFizzを返す', async () => {
+    event = {
+      queryStringParameters: { number: '3' },
+    };
+    const result = await app.generate(event);
 
-      expect(response).to.be.an('object');
-      expect(response.message).to.be.equal('Hello Node.js lambda world');
-      expect(response.location).to.be.an('string');
-    });
+    expect(result).to.be.an('object');
+    expect(result.statusCode).to.equal(200);
+    expect(result.body).to.be.an('string');
+    expect(result.body).to.equal('Fizz');
+  });
+
+  it("5ならば[1, 2, 'Fizz', 4, 'Buzz']を返す", async () => {
+    event = {
+      body: '{"count": "5"}',
+    };
+    const result = await app.iterate(event);
+
+    expect(result).to.be.an('object');
+    expect(result.statusCode).to.equal(200);
+    expect(result.body).to.be.an('string');
+    expect(result.body).to.eql([1, 2, 'Fizz', 4, 'Buzz']);
   });
 });

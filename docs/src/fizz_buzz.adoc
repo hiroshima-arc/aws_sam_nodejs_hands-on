@@ -59,6 +59,10 @@ end
 ----
 include::../../sam-app/fizz_buzz/tests/unit/test_fizz_buzz.js[]
 ----
+[source,javascript]
+----
+include::../../sam-app/fizz_buzz/tests/unit/test_handler.js[]
+----
 
 === プロダクトコード
 [source,javascript]

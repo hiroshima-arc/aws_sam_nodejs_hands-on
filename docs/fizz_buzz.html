@@ -579,6 +579,50 @@ describe('Tests FizzBuzz', () =&gt; {
 });</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">/* eslint-disable import/no-extraneous-dependencies */
+
+const chai = require('chai');
+const app = require('../../app.js');
+
+const { expect } = chai;
+
+describe('Tests FizzBuzzFunction', () =&gt; {
+  let event;
+
+  beforeEach(() =&gt; {
+    event = {
+      body: '{}',
+    };
+  });
+
+  it('3ならばFizzを返す', async () =&gt; {
+    event = {
+      queryStringParameters: { number: '3' },
+    };
+    const result = await app.generate(event);
+
+    expect(result).to.be.an('object');
+    expect(result.statusCode).to.equal(200);
+    expect(result.body).to.be.an('string');
+    expect(result.body).to.equal('Fizz');
+  });
+
+  it("5ならば[1, 2, 'Fizz', 4, 'Buzz']を返す", async () =&gt; {
+    event = {
+      body: '{"count": "5"}',
+    };
+    const result = await app.iterate(event);
+
+    expect(result).to.be.an('object');
+    expect(result.statusCode).to.equal(200);
+    expect(result.body).to.be.an('string');
+    expect(result.body).to.eql([1, 2, 'Fizz', 4, 'Buzz']);
+  });
+});</code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_プロダクトコード">3.2. プロダクトコード</h3>
@@ -628,7 +672,7 @@ describe('Tests FizzBuzz', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-09-30 13:04:37 JST
+Last updated 2018-09-30 13:09:59 JST
 </div>
 </div>
 </body>
