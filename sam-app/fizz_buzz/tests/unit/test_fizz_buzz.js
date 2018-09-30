@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const chai = require('chai');
 const FizzBuzz = require('../../src/fizz_buzz');
 

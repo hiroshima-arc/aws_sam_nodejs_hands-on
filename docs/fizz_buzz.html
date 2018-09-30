@@ -530,7 +530,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h3 id="_テストコード">3.1. テストコード</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">const chai = require('chai');
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">/* eslint-disable import/no-extraneous-dependencies */
+const chai = require('chai');
 const FizzBuzz = require('../../src/fizz_buzz');
 
 const { expect } = chai;
@@ -627,7 +628,7 @@ describe('Tests FizzBuzz', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-09-30 12:56:49 JST
+Last updated 2018-09-30 13:04:37 JST
 </div>
 </div>
 </body>
