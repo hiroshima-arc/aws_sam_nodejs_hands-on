@@ -3,6 +3,8 @@ module.exports = class FizzBuzz {
     let value = number;
     if (number % 3 === 0) {
       value = 'Fizz';
+    } else if (number % 5 === 0) {
+      value = 'Buzz';
     }
     return value;
   }
