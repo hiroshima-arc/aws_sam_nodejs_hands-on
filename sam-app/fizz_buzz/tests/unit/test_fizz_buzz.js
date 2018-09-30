@@ -19,4 +19,12 @@ describe('Tests FizzBuzz', () => {
   it('5ならばBuzzを返す', () => {
     expect(FizzBuzz.generate(5)).to.equal('Buzz');
   });
+
+  it('10ならばBuzzを返す', () => {
+    expect(FizzBuzz.generate(10)).to.equal('Buzz');
+  });
+
+  it('50ならばBuzzを返す', () => {
+    expect(FizzBuzz.generate(50)).to.equal('Buzz');
+  });
 });
