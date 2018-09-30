@@ -10,4 +10,7 @@ module.exports = class FizzBuzz {
     }
     return value;
   }
+
+  static iterate(count) {
+  }
 };

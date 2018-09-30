@@ -509,7 +509,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h3 id="_クラス図">2.3. クラス図</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/diag-a044a0a28d1526cdb23ba957b7494488.png" alt="diag a044a0a28d1526cdb23ba957b7494488" width="99" height="78">
+<img src="./images/diag-6bc15dc2d9a8beb57b2469954d29e874.png" alt="diag 6bc15dc2d9a8beb57b2469954d29e874" width="99" height="91">
 </div>
 </div>
 </div>
@@ -571,6 +571,10 @@ describe('Tests FizzBuzz', () =&gt; {
   it('101ならば101を返す', () =&gt; {
     expect(FizzBuzz.generate(101)).to.equal(101);
   });
+
+  it("5ならば[1, 2, 'Fizz', 4, 'Buzz']を返す", () =&gt; {
+    expect(FizzBuzz.iterate(5)).to.eql([1, 2, 'Fizz', 4, 'Buzz']);
+  });
 });</code></pre>
 </div>
 </div>
@@ -590,6 +594,9 @@ describe('Tests FizzBuzz', () =&gt; {
       value = 'Buzz';
     }
     return value;
+  }
+
+  static iterate(count) {
   }
 };</code></pre>
 </div>
@@ -615,7 +622,7 @@ describe('Tests FizzBuzz', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-09-30 12:30:11 JST
+Last updated 2018-09-30 12:38:53 JST
 </div>
 </div>
 </body>

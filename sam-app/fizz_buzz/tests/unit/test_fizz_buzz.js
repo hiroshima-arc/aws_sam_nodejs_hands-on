@@ -39,4 +39,8 @@ describe('Tests FizzBuzz', () => {
   it('101ならば101を返す', () => {
     expect(FizzBuzz.generate(101)).to.equal(101);
   });
+
+  it("5ならば[1, 2, 'Fizz', 4, 'Buzz']を返す", () => {
+    expect(FizzBuzz.iterate(5)).to.eql([1, 2, 'Fizz', 4, 'Buzz']);
+  });
 });
