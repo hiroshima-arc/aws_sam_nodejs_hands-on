@@ -36,21 +36,31 @@ Resources:
                         Path: /hello
                         Method: get
 
-    FizzBuzzFunction:
-      Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    FizzBuzzGenerateFunction:
+      Type: AWS::Serverless::Function
       Properties:
         CodeUri: fizz_buzz/
-        Handler: app.lambda_handler
+        Handler: app.generate
         Runtime: nodejs8.10
-        Environment: # More info about Env Vars: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#environment-object
-          Variables:
-            PARAM1: VALUE
         Events:
           GetResource:
-            Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+            Type: Api
             Properties:
-              Path: /fizz_buzz
+              Path: /fizz_buzz/generate
               Method: get
+
+    FizzBuzzIterateFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: fizz_buzz/
+        Handler: app.iterate
+        Runtime: nodejs8.10
+        Events:
+          GetResource:
+            Type: Api
+            Properties:
+              Path: /fizz_buzz/iterate
+              Method: post
 
 Outputs:
 
@@ -65,3 +75,8 @@ Outputs:
     HelloWorldFunctionIamRole:
       Description: "Implicit IAM Role created for Hello World function"
       Value: !GetAtt HelloWorldFunctionRole.Arn
+
+    FizzBuzzGenerateApi:
+      Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+      Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/fizz_buzz/generate?number=3"
+
