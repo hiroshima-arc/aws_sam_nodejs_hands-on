@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>AWS サーバーレスアプリケーションモデル (AWS SAM) ハンズオン(Node.js)</title>
+<title>Fizz Buzz</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -427,86 +427,288 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>AWS サーバーレスアプリケーションモデル (AWS SAM) ハンズオン(Node.js)</h1>
+<h1>Fizz Buzz</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_目的">1. 目的</a></li>
-<li><a href="#_前提">2. 前提</a></li>
-<li><a href="#_構成">3. 構成</a></li>
-<li><a href="#_詳細">4. 詳細</a>
+<li><a href="#_仕様">1. 仕様</a></li>
+<li><a href="#_設計">2. 設計</a>
 <ul class="sectlevel2">
-<li><a href="#_a_href_hello_world_html_helloworld_a_a_id_anchor_1_a">4.1. <a href="./hello_world.html">HelloWorld</a><a id="anchor-1"></a></a></li>
-<li><a href="#_a_href_fizz_buzz_html_fizzbuzz_a_a_id_anchor_2_a">4.2. <a href="./fizz_buzz.html">FizzBuzz</a><a id="anchor-2"></a></a></li>
+<li><a href="#_todoリスト">2.1. TODOリスト</a></li>
+<li><a href="#_ユースケース図">2.2. ユースケース図</a></li>
+<li><a href="#_クラス図">2.3. クラス図</a></li>
+<li><a href="#_シーケンス図">2.4. シーケンス図</a></li>
 </ul>
 </li>
-<li><a href="#_参照">5. 参照</a></li>
+<li><a href="#_実装">3. 実装</a>
+<ul class="sectlevel2">
+<li><a href="#_テストコード">3.1. テストコード</a></li>
+<li><a href="#_プロダクトコード">3.2. プロダクトコード</a></li>
+</ul>
+</li>
+<li><a href="#_参照">4. 参照</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_目的">1. 目的</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>開発ドキュメントの管理</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_前提">2. 前提</h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ソフトウェア</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">バージョン</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">備考</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">node</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8.10.0</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_構成">3. 構成</h2>
+<h2 id="_仕様">1. 仕様</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#anchor-1">HelloWorld</a></p>
+<p>３で割り切れる場合は「Fizz」を出力する。</p>
 </li>
 <li>
-<p><a href="#anchor-2">FizzBuzz</a></p>
+<p>５で割り切れる場合は「Buzz」を出力する。</p>
+</li>
+<li>
+<p>両者で割り切れる場合は「FizzBuzz」を出力する。</p>
+</li>
+<li>
+<p>上記以外の場合は与えられた数字を出力する。</p>
+</li>
+<li>
+<p>指定された回数だけ繰り返し実行する。</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_詳細">4. 詳細</h2>
+<h2 id="_設計">2. 設計</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_a_href_hello_world_html_helloworld_a_a_id_anchor_1_a">4.1. <a href="./hello_world.html">HelloWorld</a><a id="anchor-1"></a></h3>
-
+<h3 id="_todoリスト">2.1. TODOリスト</h3>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p>&#10003; 「Fizz」を出力できるようにする</p>
+</li>
+<li>
+<p>&#10003; 「Buzz」を出力できるようにする</p>
+</li>
+<li>
+<p>&#10003; 「FizzBuzz」を出力できるようにする</p>
+</li>
+<li>
+<p>&#10003; 繰り返し実行できるようにする</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_a_href_fizz_buzz_html_fizzbuzz_a_a_id_anchor_2_a">4.2. <a href="./fizz_buzz.html">FizzBuzz</a><a id="anchor-2"></a></h3>
-
+<h3 id="_ユースケース図">2.2. ユースケース図</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/diag-18b116208c0839035ae385fac67dfa1d.png" alt="diag 18b116208c0839035ae385fac67dfa1d" width="272" height="162">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_クラス図">2.3. クラス図</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/diag-6bc15dc2d9a8beb57b2469954d29e874.png" alt="diag 6bc15dc2d9a8beb57b2469954d29e874" width="99" height="91">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_シーケンス図">2.4. シーケンス図</h3>
+<div class="imageblock">
+<div class="content">
+<img src="./images/diag-e2bdd93f913bf7a0a2eaed7cfb34a788.png" alt="diag e2bdd93f913bf7a0a2eaed7cfb34a788" width="206" height="309">
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_参照">5. 参照</h2>
+<h2 id="_実装">3. 実装</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_テストコード">3.1. テストコード</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">/* eslint-disable import/no-extraneous-dependencies */
+const chai = require('chai');
+const FizzBuzz = require('../../src/fizz_buzz');
+
+const { expect } = chai;
+
+describe('Tests FizzBuzz', () =&gt; {
+  it('3ならばFizzを返す', () =&gt; {
+    expect(FizzBuzz.generate(3)).to.equal('Fizz');
+  });
+
+  it('6ならばFizzを返す', () =&gt; {
+    expect(FizzBuzz.generate(6)).to.equal('Fizz');
+  });
+
+  it('5ならばBuzzを返す', () =&gt; {
+    expect(FizzBuzz.generate(5)).to.equal('Buzz');
+  });
+
+  it('10ならばBuzzを返す', () =&gt; {
+    expect(FizzBuzz.generate(10)).to.equal('Buzz');
+  });
+
+  it('50ならばBuzzを返す', () =&gt; {
+    expect(FizzBuzz.generate(50)).to.equal('Buzz');
+  });
+
+  it('15ならばFizzBuzzを返す', () =&gt; {
+    expect(FizzBuzz.generate(15)).to.equal('FizzBuzz');
+  });
+
+  it('30ならばFizzBuzzを返す', () =&gt; {
+    expect(FizzBuzz.generate(30)).to.equal('FizzBuzz');
+  });
+
+  it('1ならば1を返す', () =&gt; {
+    expect(FizzBuzz.generate(1)).to.equal(1);
+  });
+
+  it('101ならば101を返す', () =&gt; {
+    expect(FizzBuzz.generate(101)).to.equal(101);
+  });
+
+  it("5ならば[1, 2, 'Fizz', 4, 'Buzz']を返す", () =&gt; {
+    expect(FizzBuzz.iterate(5)).to.eql([1, 2, 'Fizz', 4, 'Buzz']);
+  });
+});</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">/* eslint-disable import/no-extraneous-dependencies */
+
+const chai = require('chai');
+const app = require('../../app.js');
+
+const { expect } = chai;
+
+describe('Tests FizzBuzzFunction', () =&gt; {
+  let event;
+
+  beforeEach(() =&gt; {
+    event = {
+      body: '{}',
+    };
+  });
+
+  it('3ならばFizzを返す', async () =&gt; {
+    event = {
+      queryStringParameters: { number: '3' },
+    };
+    const result = await app.generate(event);
+
+    expect(result).to.be.an('object');
+    expect(result.statusCode).to.equal(200);
+    expect(result.body).to.be.an('string');
+    expect(result.body).to.equal('Fizz');
+  });
+
+  it("5ならば[1, 2, 'Fizz', 4, 'Buzz']を返す", async () =&gt; {
+    event = {
+      body: '{"count": "5"}',
+    };
+    const result = await app.iterate(event);
+
+    expect(result).to.be.an('object');
+    expect(result.statusCode).to.equal(200);
+    expect(result.body).to.be.an('array');
+    expect(result.body).to.eql([1, 2, 'Fizz', 4, 'Buzz']);
+  });
+});</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_プロダクトコード">3.2. プロダクトコード</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">module.exports = class FizzBuzz {
+  static generate(number) {
+    let value = number;
+    if (number % 3 === 0 &amp;&amp; number % 5 === 0) {
+      value = 'FizzBuzz';
+    } else if (number % 3 === 0) {
+      value = 'Fizz';
+    } else if (number % 5 === 0) {
+      value = 'Buzz';
+    }
+    return value;
+  }
+
+  static iterate(count) {
+    const array = [];
+    for (let i = 0; i &lt; count; i += 1) {
+      array.push(FizzBuzz.generate(i + 1));
+    }
+    return array;
+  }
+};</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">/* eslint-disable no-console,max-len,prefer-destructuring */
+
+const FizzBuzz = require('./src/fizz_buzz');
+
+const createResponse = (statusCode, body) =&gt; ({
+  statusCode,
+  body,
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+});
+
+exports.generate = async (event) =&gt; {
+  let number;
+  let data;
+  if (event.queryStringParameters !== null &amp;&amp; event.queryStringParameters !== undefined) {
+    if (event.queryStringParameters.number !== null &amp;&amp; event.queryStringParameters.number !== undefined) {
+      number = event.queryStringParameters.number;
+    }
+  }
+
+  try {
+    data = FizzBuzz.generate(number);
+  } catch (err) {
+    console.log(`Application error occurred: ${err}`);
+    return createResponse(500, err);
+  }
+
+  console.log(`Application execute with params: ${number}`);
+  return createResponse(200, data);
+};
+
+exports.iterate = async (event) =&gt; {
+  const params = {
+    Item: JSON.parse(event.body),
+  };
+  let data;
+
+  try {
+    data = FizzBuzz.iterate(params.Item.count);
+  } catch (err) {
+    console.log(`Application error occurred: ${err}`);
+    return createResponse(500, err);
+  }
+
+  console.log(`Application execute with params: ${JSON.stringify(params.Item)}`);
+  return createResponse(200, data);
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_参照">4. 参照</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -516,9 +718,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>PlantUML[<a href="http://www.plantuml.com" class="bare">http://www.plantuml.com</a>]</p>
 </li>
-<li>
-<p>draw.io[<a href="https://about.draw.io/" class="bare">https://about.draw.io/</a>]</p>
-</li>
 </ul>
 </div>
 </div>
@@ -526,7 +725,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-09-29 17:57:42 JST
+Last updated 2018-09-30 13:19:15 JST
 </div>
 </div>
 </body>

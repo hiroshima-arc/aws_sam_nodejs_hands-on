@@ -513,9 +513,13 @@ exports.lambda_handler = async (event, context, callback) =&gt; {
         response = {
             statusCode: 200,
             body: JSON.stringify({
-                message: 'hello world',
+                message: 'Hello Node.js lambda world',
                 location: ret.data.trim(),
             }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            },
         };
     } catch (err) {
         console.log(err);
@@ -549,7 +553,7 @@ describe('Tests index', () =&gt; {
             const response = JSON.parse(result.body);
 
             expect(response).to.be.an('object');
-            expect(response.message).to.be.equal('hello world');
+            expect(response.message).to.be.equal('Hello Node.js lambda world');
             expect(response.location).to.be.an('string');
         });
     });
@@ -573,7 +577,7 @@ describe('Tests index', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-08-23 17:32:42 JST
+Last updated 2018-08-23 18:54:05 JST
 </div>
 </div>
 </body>
