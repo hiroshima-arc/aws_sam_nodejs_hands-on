@@ -15,4 +15,8 @@ describe('Tests FizzBuzz', () => {
   it('30ならばFizzを返す', () => {
     expect(FizzBuzz.generate(30)).to.equal('Fizz');
   });
+
+  it('5ならばBuzzを返す', () => {
+    expect(FizzBuzz.generate(5)).to.equal('Buzz');
+  });
 });
