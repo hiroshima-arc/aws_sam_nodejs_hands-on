@@ -15,9 +15,11 @@
 
 == 構成
 * <<anchor-1,HelloWorld>>
+* <<anchor-2,FizzBuzz>>
 
 == 詳細
 === link:./hello_world.html[HelloWorld][[anchor-1]]
+=== link:./fizz_buzz.html[FizzBuzz][[anchor-2]]
 
 == 参照
 * Asciidoctor[http://asciidoctor.org/]
