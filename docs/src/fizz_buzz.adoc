@@ -44,9 +44,13 @@ class FizzBuzz {
 ----
 actor User
 
-User -> FizzBuzz
-FizzBuzz -> FizzBuzz :generate
-User <- FizzBuzz
+User -> FizzBuzz: iterate
+loop for each count
+      activate FizzBuzz
+      FizzBuzz -> FizzBuzz: generate
+            User <- FizzBuzz
+      deactivate FizzBuzz
+end
 ----
 
 == 実装
@@ -54,6 +58,7 @@ User <- FizzBuzz
 [source,javascript]
 ----
 include::../../sam-app/fizz_buzz/tests/unit/test_fizz_buzz.js[]
+
 ----
 
 === プロダクトコード

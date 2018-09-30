@@ -597,7 +597,11 @@ describe('Tests FizzBuzz', () =&gt; {
   }
 
   static iterate(count) {
-    return [1, 2, 'Fizz', 4, 'Buzz'];
+    const array = [];
+    for (let i = 0; i &lt; count; i += 1) {
+      array.push(FizzBuzz.generate(i + 1));
+    }
+    return array;
   }
 };</code></pre>
 </div>
@@ -623,7 +627,7 @@ describe('Tests FizzBuzz', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-09-30 12:52:18 JST
+Last updated 2018-09-30 12:53:16 JST
 </div>
 </div>
 </body>

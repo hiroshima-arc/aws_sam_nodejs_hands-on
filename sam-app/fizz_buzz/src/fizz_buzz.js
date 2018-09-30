@@ -12,6 +12,10 @@ module.exports = class FizzBuzz {
   }
 
   static iterate(count) {
-    return [1, 2, 'Fizz', 4, 'Buzz'];
+    const array = [];
+    for (let i = 0; i < count; i += 1) {
+      array.push(FizzBuzz.generate(i + 1));
+    }
+    return array;
   }
 };
