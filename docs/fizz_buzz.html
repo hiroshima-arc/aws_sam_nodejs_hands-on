@@ -536,6 +536,14 @@ describe('Tests FizzBuzz', () =&gt; {
   it('3ならばFizzを返す', () =&gt; {
     expect(FizzBuzz.generate(3)).to.equal('Fizz');
   });
+
+  it('6ならばFizzを返す', () =&gt; {
+    expect(FizzBuzz.generate(6)).to.equal('Fizz');
+  });
+
+  it('30ならばFizzを返す', () =&gt; {
+    expect(FizzBuzz.generate(30)).to.equal('Fizz');
+  });
 });</code></pre>
 </div>
 </div>
@@ -546,7 +554,11 @@ describe('Tests FizzBuzz', () =&gt; {
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">module.exports = class FizzBuzz {
   static generate(number) {
-    return 'Fizz';
+    let value = number;
+    if (number % 3 === 0) {
+      value = 'Fizz';
+    }
+    return value;
   }
 };</code></pre>
 </div>
@@ -572,7 +584,7 @@ describe('Tests FizzBuzz', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-09-30 10:55:43 JST
+Last updated 2018-09-30 11:06:25 JST
 </div>
 </div>
 </body>
