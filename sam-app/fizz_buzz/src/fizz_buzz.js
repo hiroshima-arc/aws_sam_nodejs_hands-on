@@ -5,6 +5,8 @@ module.exports = class FizzBuzz {
       value = 'Fizz';
     } else if (number % 5 === 0) {
       value = 'Buzz';
+    } else if (number % 3 === 0 && number % 5 === 0) {
+      value = 'FizzBuzz';
     }
     return value;
   }
