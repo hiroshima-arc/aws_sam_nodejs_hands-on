@@ -69,6 +69,10 @@ include::../../sam-app/fizz_buzz/tests/unit/test_handler.js[]
 ----
 include::../../sam-app/fizz_buzz/src/fizz_buzz.js[]
 ----
+[source,javascript]
+----
+include::../../sam-app/fizz_buzz/app.js[]
+----
 
 == 参照
 * Asciidoctor[http://asciidoctor.org/]

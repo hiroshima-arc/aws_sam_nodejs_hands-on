@@ -617,7 +617,7 @@ describe('Tests FizzBuzzFunction', () =&gt; {
 
     expect(result).to.be.an('object');
     expect(result.statusCode).to.equal(200);
-    expect(result.body).to.be.an('string');
+    expect(result.body).to.be.an('array');
     expect(result.body).to.eql([1, 2, 'Fizz', 4, 'Buzz']);
   });
 });</code></pre>
@@ -651,6 +651,59 @@ describe('Tests FizzBuzzFunction', () =&gt; {
 };</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">/* eslint-disable no-console,max-len,prefer-destructuring */
+
+const FizzBuzz = require('./src/fizz_buzz');
+
+const createResponse = (statusCode, body) =&gt; ({
+  statusCode,
+  body,
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+});
+
+exports.generate = async (event) =&gt; {
+  let number;
+  let data;
+  if (event.queryStringParameters !== null &amp;&amp; event.queryStringParameters !== undefined) {
+    if (event.queryStringParameters.number !== null &amp;&amp; event.queryStringParameters.number !== undefined) {
+      number = event.queryStringParameters.number;
+    }
+  }
+
+  try {
+    data = FizzBuzz.generate(number);
+  } catch (err) {
+    console.log(`Application error occurred: ${err}`);
+    return createResponse(500, err);
+  }
+
+  console.log(`Application execute with params: ${number}`);
+  return createResponse(200, data);
+};
+
+exports.iterate = async (event) =&gt; {
+  const params = {
+    Item: JSON.parse(event.body),
+  };
+  let data;
+
+  try {
+    data = FizzBuzz.iterate(params.Item.count);
+  } catch (err) {
+    console.log(`Application error occurred: ${err}`);
+    return createResponse(500, err);
+  }
+
+  console.log(`Application execute with params: ${JSON.stringify(params.Item)}`);
+  return createResponse(200, data);
+};</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -672,7 +725,7 @@ describe('Tests FizzBuzzFunction', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-09-30 13:09:59 JST
+Last updated 2018-09-30 13:19:15 JST
 </div>
 </div>
 </body>

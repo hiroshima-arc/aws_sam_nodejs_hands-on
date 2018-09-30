@@ -1,29 +1,49 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console,max-len,prefer-destructuring */
 
-const axios = require('axios');
+const FizzBuzz = require('./src/fizz_buzz');
 
-const url = 'http://checkip.amazonaws.com/';
-let response;
+const createResponse = (statusCode, body) => ({
+  statusCode,
+  body,
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+});
 
-
-exports.lambda_handler = async (event, context, callback) => {
-  try {
-    const ret = await axios(url);
-    response = {
-      statusCode: 200,
-      body: JSON.stringify({
-        message: 'Hello Node.js lambda world',
-        location: ret.data.trim(),
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-    };
-  } catch (err) {
-    console.log(err);
-    callback(err, null);
+exports.generate = async (event) => {
+  let number;
+  let data;
+  if (event.queryStringParameters !== null && event.queryStringParameters !== undefined) {
+    if (event.queryStringParameters.number !== null && event.queryStringParameters.number !== undefined) {
+      number = event.queryStringParameters.number;
+    }
   }
 
-  callback(null, response);
+  try {
+    data = FizzBuzz.generate(number);
+  } catch (err) {
+    console.log(`Application error occurred: ${err}`);
+    return createResponse(500, err);
+  }
+
+  console.log(`Application execute with params: ${number}`);
+  return createResponse(200, data);
+};
+
+exports.iterate = async (event) => {
+  const params = {
+    Item: JSON.parse(event.body),
+  };
+  let data;
+
+  try {
+    data = FizzBuzz.iterate(params.Item.count);
+  } catch (err) {
+    console.log(`Application error occurred: ${err}`);
+    return createResponse(500, err);
+  }
+
+  console.log(`Application execute with params: ${JSON.stringify(params.Item)}`);
+  return createResponse(200, data);
 };
