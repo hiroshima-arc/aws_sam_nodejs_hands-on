@@ -5,6 +5,6 @@ const { expect } = chai;
 
 describe('Tests FizzBuzz', () => {
   it('3ならばFizzを返す', () => {
-    expect(3).to.be.equal('Fizz');
+    expect(FizzBuzz.generate(3)).to.equal('Fizz');
   });
 });

@@ -506,7 +506,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h3 id="_クラス図">2.3. クラス図</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/diag-adeda49ba7b0005cfe35cfe3af0a606e.png" alt="diag adeda49ba7b0005cfe35cfe3af0a606e" width="99" height="66">
+<img src="./images/diag-a044a0a28d1526cdb23ba957b7494488.png" alt="diag a044a0a28d1526cdb23ba957b7494488" width="99" height="78">
 </div>
 </div>
 </div>
@@ -514,7 +514,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h3 id="_シーケンス図">2.4. シーケンス図</h3>
 <div class="imageblock">
 <div class="content">
-<img src="./images/diag-2bd6d9a277546ad0d3a06ab1dd8c3f2e.png" alt="diag 2bd6d9a277546ad0d3a06ab1dd8c3f2e" width="140" height="220">
+<img src="./images/diag-1e1375586d4523e254cedb192ac017c7.png" alt="diag 1e1375586d4523e254cedb192ac017c7" width="166" height="263">
 </div>
 </div>
 </div>
@@ -534,7 +534,7 @@ const { expect } = chai;
 
 describe('Tests FizzBuzz', () =&gt; {
   it('3ならばFizzを返す', () =&gt; {
-    expect(3).to.be.equal('Fizz');
+    expect(FizzBuzz.generate(3)).to.equal('Fizz');
   });
 });</code></pre>
 </div>
@@ -545,6 +545,9 @@ describe('Tests FizzBuzz', () =&gt; {
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">module.exports = class FizzBuzz {
+  static generate(number) {
+    return 'Fizz';
+  }
 };</code></pre>
 </div>
 </div>
@@ -569,7 +572,7 @@ describe('Tests FizzBuzz', () =&gt; {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-09-30 10:36:07 JST
+Last updated 2018-09-30 10:55:43 JST
 </div>
 </div>
 </body>
