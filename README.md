@@ -8,7 +8,7 @@ AWS サーバーレスアプリケーションモデル (AWS SAM) ハンズオ�
 | ソフトウェア   | バージョン   | 備考        |
 |:---------------|:-------------|:------------|
 | node           |8.10.0    |             |
-| sam            |0.3.0  |             |
+| sam            |0.6.0  |             |
 | docker         |17.06.2  |             |
 | docker-compose |1.21.0  |             |
 | vagrant        |2.0.3  |             |
@@ -35,7 +35,7 @@ vagrant ssh
 + nvmのインストール
 + Node.jsのインストール
 ```bash
-pip install aws-sam-cli
+pip install --user aws-sam-cli
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.3/install.sh | bash
 source ~/.bashrc 
 nvm install v8.10
@@ -79,7 +79,7 @@ cd /vagrant/ops/code_pipline
 ```
 cd /vagrant/
 npm init
-npm install npm-run-all mocha chai eslint husky@next nyc --save-dev
+npm install npm-run-all mocha chai eslint husky nyc --save-dev
 npx install-peerdeps --dev eslint-config-airbnb
 ```
 以下のnpmスクリプトを追加する
@@ -199,7 +199,7 @@ cd sam-app
 cd hello_world
 npm install
 npm test
-sam local generate-event api > event_file.json
+sam local generate-event apigateway aws-proxy > event_file.json
 cd ..
 sam local invoke HelloWorldFunction --event hello_world/event_file.json
 sam local start-api --host 0.0.0.0
@@ -216,9 +216,9 @@ npm install eslint --save-dev
 cd /vagrant/sam-app/hello_world/
 npx install-peerdeps --dev eslint-config-airbnb
 ./node_modules/.bin/eslint --init
-cat <<EOF > .eslintrc
+cat <<EOF > .eslintrc.json
 {
-  "extends": "airbnb",
+  "extends": "airbnb-base",
   "plugins": [],
   "parserOptions": {},
   "env": {"mocha": true},
