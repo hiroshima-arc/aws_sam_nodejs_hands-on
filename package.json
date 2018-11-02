@@ -17,6 +17,7 @@
     "test:hello_world": "mocha sam-app/hello_world/tests/*",
     "coverage": "npm-run-all coverage:*",
     "coverage:hello_world": "nyc --reporter=html --reporter=text mocha sam-app/hello_world/tests/*",
+    "package:patch": "find . -mtime +10950 -print -exec touch {} \\;",
     "package": "sam package --template-file sam-app/template.yaml --s3-bucket nodejs-hands-on --output-template-file sam-app/packaged.yaml",
     "deploy:dev": "sam deploy --template-file sam-app/packaged.yaml --stack-name nodejs-hands-on-development --capabilities CAPABILITY_IAM"
   },
